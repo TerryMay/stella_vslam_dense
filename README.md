@@ -88,6 +88,20 @@ Run VSLAM and export script in container
 
 Run nerfstudio on the host or in another container
 
+#### Running your own Insta360 RS1 footage
+1. Convert the recording to an **equirectangular** mp4 using Insta360 Studio and
+   place it in `/data`.
+2. Create a configuration file matching the exported resolution:
+   ```bash
+   cp /stella_vslam/example/dense/dense.yaml /data/insta360_rs1.yaml
+   # edit Camera.cols, Camera.rows and Camera.fps to fit your video
+   ```
+3. Start VSLAM with the custom video:
+   ```bash
+   ./run_video_slam -v /data/orb_vocab.fbow -c /data/insta360_rs1.yaml -m /data/my_rs1_video.mp4 --frame-skip 3 -o /data/my_rs1.db
+   ```
+
+
 ## Additional export scripts
 Exporting the project from sqlite3 for use with [nerfstudio](https://docs.nerf.studio/)
 ```
